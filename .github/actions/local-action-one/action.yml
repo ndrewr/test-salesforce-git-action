@@ -1,0 +1,5 @@
+name: 'Local Action One'
+description: 'Testing running of local actions'
+runs:
+    using: 'docker'
+    image: 'Dockerfile'

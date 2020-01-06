@@ -1,0 +1,17 @@
+on:
+    push:
+        branches:
+            - master
+            - feature1
+            - feature2
+
+jobs:
+    task_one:
+        runs-on: ubuntu-latest
+        name: Lets run the second task
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v1
+            - name: Prep machine with SFDX
+              id: cli
+              uses: tythonco/actions-sfdx/cli@test-flows
