@@ -1,4 +1,4 @@
-# Tython SFDX Project Template
+# Tarjeh Project
 
 ## Dev, Build and Test
 
@@ -7,14 +7,14 @@
 1. Run `npm install` to bring in all development dependencies.
 
 2. Configuration (if project starter):
-In `config/project-scratch-def.json` there *might* be org features that need to be enabled case-by-case. See [docs](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_scratch_orgs_def_file.htm).
+   In `config/project-scratch-def.json` there _might_ be org features that need to be enabled case-by-case. See [docs](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_scratch_orgs_def_file.htm).
 
 Make sure you have set up and identified a Dev Hub org, a Prod org (if different from Dev Hub org), and a QA sandbox org.
 
 For ISV projects, be sure to [link the managed package namespace to the Dev Hub](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_reg_namespace.htm) and then set the namespace in `sfdx-project.json`
 
 3. Authenticate to Dev Hub org for scratch org creation using auth flow
-(see `Org Authentication`) and if project starter, set up CI/CD (see `CI Setup`)
+   (see `Org Authentication`) and if project starter, set up CI/CD (see `CI Setup`)
 
 4. Script to spin up scratch orgs included (see `scripts/create-scratch-org.sh`); Use shortcut `npm start` once auth is set up.
 
@@ -22,29 +22,29 @@ For ISV projects, be sure to [link the managed package namespace to the Dev Hub]
 
 ### Org Authentication
 
-*Use the shortcut:*
+_Use the shortcut:_
 
 1. `npm run setup`.
 
 OR
 
-*Manual steps for project starter:*
+_Manual steps for project starter:_
 
 1. Setup Dev Hub:
-Run command `sfdx force:auth:web:login -s -a {ProjectName}DevHub`. (Note the namespaced alias.)
-Login portal page will open; login to org using the appropriate user/pass.
+   Run command `sfdx force:auth:web:login -s -a {ProjectName}DevHub`. (Note the namespaced alias.)
+   Login portal page will open; login to org using the appropriate user/pass.
 
 2. Once the web auth flow completes successfully, run `sfdx force:org:display --verbose`
-Note the "Sfdx Auth Url" value.
+   Note the "Sfdx Auth Url" value.
 
 3. Create a local file `sfdx_auth_url.txt` and paste the value for "SFDX_AUTH_URL" obtained above (and nothing else).
-This is for spinning up new scratch orgs locally via `create-scratch-org` script and must be kept out of source control!
+   This is for spinning up new scratch orgs locally via `create-scratch-org` script and must be kept out of source control!
 
 4. Generate a secure password that will be used for encryption/decryption of the auth_url file, e.g. obtained via 1Password generator.
-This password will be set in both CI and securely shared with other team members.
+   This password will be set in both CI and securely shared with other team members.
 
-5. Use the `openssl` utility to encrypt `sfdx_auth_url.txt`. This *will* be checked into source.
-NOTE: from the command below you need to sub in the secure password for the `-k` argument.
+5. Use the `openssl` utility to encrypt `sfdx_auth_url.txt`. This _will_ be checked into source.
+   NOTE: from the command below you need to sub in the secure password for the `-k` argument.
 
 ```bash
 openssl enc -aes-256-cbc -md md5 -k “Super Secure Password!!!” -in sfdx_auth_url.txt -out sfdx_auth_url.txt.enc
@@ -70,7 +70,7 @@ For the encryption password just use the same one from the Dev Hub & Prod org(s)
 
 OR
 
-*Manual steps for non project starter(s):*
+_Manual steps for non project starter(s):_
 
 1. Retrieve secure encryption/decryption password via secure sharing method, such as 1Password
 
@@ -85,10 +85,10 @@ openssl enc -d -aes-256-cbc -md md5 -k "Super Secure Password!!!" -in sfdx_auth_
 1. Follow steps from `Org Authentication`, making sure a Salesforce sandbox has been set up for QA.
 
 2. Login to CircleCI under the org account. Goto "Add Project" and link the new project repo.
-NOTE: This kicks off a first build; Immediately cancel that build because it will fail.
+   NOTE: This kicks off a first build; Immediately cancel that build because it will fail.
 
 3. Go into "Settings" => "Environment Variables" for this project.
-Add a new env var named `AUTH_FILE_KEY` and give it the password you used when encrypting production & QA auth_url files.
+   Add a new env var named `AUTH_FILE_KEY` and give it the password you used when encrypting production & QA auth_url files.
 
 4. Choose `Advanced Settings` and turn on `Only build pull requests`
 

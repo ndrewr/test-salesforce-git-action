@@ -1,5 +1,5 @@
 {
-    "name": "MyProject",
+    "name": "TestSalesforceGitAction",
     "private": true,
     "devDependencies": {
         "@salesforce/eslint-config-lwc": "^0.3.0",

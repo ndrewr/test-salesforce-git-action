@@ -1,5 +1,5 @@
 {
-    "orgName": "Tython",
+    "orgName": "Tarjeh",
     "edition": "Developer",
     "settings": {
         "lightningExperienceSettings": {
@@ -9,5 +9,5 @@
             "enableS1EncryptedStoragePref2": false
         }
     },
-    "adminEmail": "devs@tython.co"
+    "adminEmail": "tarjeh@tython.co"
 }

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # IMPORTANT! Replace with the actual project name!
-PROJECT_NAME=MyProject
+PROJECT_NAME=Tarjeh
 DEVHUB_NAME="${PROJECT_NAME}DevHub"
 PERMSET_NAME="${PROJECT_NAME}UserPermissions"
 SFDX_AUTH_URL=sfdx_auth_url.txt
