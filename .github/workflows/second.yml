@@ -14,4 +14,4 @@ jobs:
               uses: actions/checkout@v1
             - name: Prep machine with SFDX
               id: ci-cd
-              uses: tythonco/actions-sfdx/cli@test-flows
+              uses: tythonco/actions-sfdx/ci-cd@master
