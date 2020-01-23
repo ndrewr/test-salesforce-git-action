@@ -14,4 +14,4 @@ jobs:
               uses: actions/checkout@v1
             - name: Run some more commands for test purposes
               id: ci-cd
-              uses: tythonco/actions-sfdx/ci-cd@master
+              uses: tythonco/actions-sfdx/ci-cd@test-flows
