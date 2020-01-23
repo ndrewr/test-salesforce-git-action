@@ -12,6 +12,6 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v1
-            - name: Prep machine with SFDX
+            - name: Run some more commands for test purposes
               id: ci-cd
               uses: tythonco/actions-sfdx/ci-cd@master
