@@ -15,3 +15,6 @@ jobs:
             - name: Prep machine with SFDX
               id: cli
               uses: tythonco/actions-sfdx/cli@test-flows
+            - name: Test local action
+              id: local action one test
+              uses: ./.github/actions/local-action-one
