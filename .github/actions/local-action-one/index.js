@@ -23,7 +23,11 @@ function installGoods(next) {
     `;
     const cmd2 = `sudo apt update && sudo apt install yarn`;
     const cmd3 = `yarn --version`;
-    exec(`${cmd1} && ${cmd2} && ${cmd3}`, (error, stdout, stderr) => {
+    // exec(`${cmd1} && ${cmd2} && ${cmd3}`, (error, stdout, stderr) => {
+    //     if (error) throw stderr;
+    //     next();
+    // });
+    exec(`${cmd1}`, (error, stdout, stderr) => {
         if (error) throw stderr;
         next();
     });
