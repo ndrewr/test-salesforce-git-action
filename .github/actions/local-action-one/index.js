@@ -22,7 +22,7 @@ function installGoods(next) {
         echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
     `;
     const cmd2 = `sudo apt update && sudo apt install yarn`;
-    const cmd3 = `echo 'Check Yarn install....' && yarn --version`;
+    const cmd3 = `yarn --version`;
     exec(`${cmd1} && ${cmd2} && ${cmd3}`, (error, stdout, stderr) => {
         if (error) throw stderr;
         next();
