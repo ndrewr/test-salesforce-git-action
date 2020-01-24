@@ -16,5 +16,5 @@ jobs:
               id: cli
               uses: tythonco/actions-sfdx/cli@test-flows
             - name: Test local action
-              id: local action one test
+              id: local-action-one
               uses: ./.github/actions/local-action-one
