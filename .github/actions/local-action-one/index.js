@@ -1,15 +1,16 @@
-// const core = require('@actions/core');
+const core = require('@actions/core');
 // const github = require('@actions/github');
 const exec = require('child_process').exec;
 // const fs = require('fs');
 
 try {
     installGoods(() => {
+        core.warning('InstallGoods returned...are we done?');
         sayDone();
     });
 } catch (e) {
-    // core.setFailed(error.message);
-    console.log(e.message);
+    core.setFailed(error.message);
+    // console.log(e.message);
 }
 
 function sayDone() {

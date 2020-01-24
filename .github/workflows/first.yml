@@ -12,9 +12,18 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v1
-            - name: Prep machine with SFDX
-              id: cli
-              uses: tythonco/actions-sfdx/cli@test-flows
+
+            - name: Use Node.js 12
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+
+            - run: npm install
+
+            # - name: Prep machine with SFDX
+            #   id: cli
+            #   uses: tythonco/actions-sfdx/cli@test-flows
+
             - name: Test local action
               id: local-action-one
               uses: ./.github/actions/local-action-one
