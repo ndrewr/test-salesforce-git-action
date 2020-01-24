@@ -1,4 +1,4 @@
-const core = require('@actions/core');
+// const core = require('@actions/core');
 // const github = require('@actions/github');
 const exec = require('child_process').exec;
 // const fs = require('fs');
@@ -8,7 +8,8 @@ try {
         sayDone();
     });
 } catch (e) {
-    core.setFailed(error.message);
+    // core.setFailed(error.message);
+    console.log(e.message);
 }
 
 function sayDone() {
