@@ -1,5 +1,6 @@
 name: 'Local Action One'
-description: 'Testing running of local actions'
+author: 'ndrewr'
+description: 'Testing running of local actions in sfdx project'
 runs:
-    using: 'docker'
-    image: 'Dockerfile'
+    using: 'node12'
+    main: 'index.js'
