@@ -1,0 +1,23 @@
+on:
+  [pull_request, push]:
+    branches:
+      - master
+      - dev
+
+jobs:
+  authenticate_to_prod:
+    runs-on: ubuntu-latest
+    name: Run unit tests
+    steps:
+      # Using v2 in this example ensures you're using a stable version of the checkout action.
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Auth to prod org
+        id: ci-validate-prod
+        uses: ./.github/actions/ci-validate-prod
+      - name: Auth Success
+        if: success()
+        run: echo "Authentication to Prod org succeeded!"
+      - name: Backup step
+        if: failure()
+        run: echo "There was issue with the 'validate' action!"
