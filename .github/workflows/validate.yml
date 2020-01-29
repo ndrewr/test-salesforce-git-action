@@ -13,8 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Auth to prod org
-        run: echo "Authentication attempt to Prod org..."
-
         id: ci-validate-prod
         uses: ./.github/actions/ci-validate-prod
         with:
