@@ -15,6 +15,9 @@ jobs:
       - name: Auth to prod org
         id: ci-validate-prod
         uses: ./.github/actions/ci-validate-prod
+        with:
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
       - name: Auth Success
         if: success()
         run: echo "Authentication to Prod org succeeded!"

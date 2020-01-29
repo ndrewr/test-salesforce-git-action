@@ -2,10 +2,11 @@ name: 'CI Validate Production'
 author: 'ndrewr'
 description: 'Authenticates to Production org using SFDX cli tool'
 
-env:
+inputs:
   # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  AUTH_FILE_KEY: ${{ secrets.AUTH_FILE_KEY }}
-
+  auth-file-key:
+    description: 'Auth key to Prod org'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
