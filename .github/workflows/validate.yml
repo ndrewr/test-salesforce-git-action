@@ -18,14 +18,14 @@ jobs:
         run: test -f prod_auth_url.txt.enc && AUTH_URL_ENC=$(<prod_auth_url.txt.enc) || AUTH_URL_ENC=false
 
       - name: Lets check env var
-        run: echo $AUTH_URL_ENC
+        run: echo "what is the env var value..." $AUTH_URL_ENC
 
       - name: Auth to prod org
-        # id: ci-validate-prod
+
+      # id: ci-validate-prod
+      # uses: ./.github/actions/ci-validate-prod
+
         id: prod-check-deploy
-
-        # uses: ./.github/actions/ci-validate-prod
-
         if: env.AUTH_URL_ENC != 'false'
         uses: tythonco/actions-sfdx/prod-check-deploy@prod-check-deploy
         with:
