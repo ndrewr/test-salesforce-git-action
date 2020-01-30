@@ -12,12 +12,23 @@ jobs:
       # Using v2 in this example ensures you're using a stable version of the checkout action.
       - name: Checkout
         uses: actions/checkout@v2
+
+      # Copy prod-auth-url-enc in src to a temp env var
+      - name: Prepare environment
+        run: test -f prod_auth_url.txt.enc && AUTH_URL_ENC=$(<prod_auth_url.txt.enc) || AUTH_URL_ENC=false
+
       - name: Auth to prod org
         id: ci-validate-prod
-        uses: ./.github/actions/ci-validate-prod
+
+        # uses: ./.github/actions/ci-validate-prod
+
+        if: env.AUTH_URL_ENC != false
+        uses: tythonco/actions-sfdx/prod-check-deploy@prod-check-deploy
         with:
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
+
+          auth-url-enc: ${{ env.AUTH_URL_ENC }}
+
       - name: Auth Success
         if: success()
         run: echo "Authentication to Prod org succeeded!"
