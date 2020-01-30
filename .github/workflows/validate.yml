@@ -17,6 +17,9 @@ jobs:
       - name: Prepare environment
         run: test -f prod_auth_url.txt.enc && AUTH_URL_ENC=$(<prod_auth_url.txt.enc) || AUTH_URL_ENC=false
 
+      - name: Lets check env var
+        run: echo $AUTH_URL_ENC
+
       - name: Auth to prod org
         # id: ci-validate-prod
         id: prod-check-deploy
