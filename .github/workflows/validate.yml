@@ -23,7 +23,7 @@ jobs:
 
         # uses: ./.github/actions/ci-validate-prod
 
-        if: env.AUTH_URL_ENC != false
+        if: env.AUTH_URL_ENC != 'false'
         uses: tythonco/actions-sfdx/prod-check-deploy@prod-check-deploy
         with:
           auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
