@@ -18,7 +18,8 @@ jobs:
         run: test -f prod_auth_url.txt.enc && AUTH_URL_ENC=$(<prod_auth_url.txt.enc) || AUTH_URL_ENC=false
 
       - name: Auth to prod org
-        id: ci-validate-prod
+        # id: ci-validate-prod
+        id: prod-check-deploy
 
         # uses: ./.github/actions/ci-validate-prod
 
