@@ -5,7 +5,12 @@
 
 # Get the private url from environment variable, create required file for cmd
 echo "Setting up Prod Connection..."
+# openssl enc -d -aes-256-cbc -md md5 -in prod_auth_url.txt.enc -out prod_auth_url.txt -k $1
+
+echo 'From ci-validate-prod local action check env...' $AUTH_URL_ENC
+echo $AUTH_URL_ENC > prod_auth_url.txt.enc
 openssl enc -d -aes-256-cbc -md md5 -in prod_auth_url.txt.enc -out prod_auth_url.txt -k $1
+
 
 # Authenticate to salesforce Prod org
 echo "Authenticating..."
