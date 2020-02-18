@@ -32,7 +32,7 @@ jobs:
         with:
           auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
 
-          auth-url-enc: ${{ env.AUTH_URL_ENC }}
+          # auth-url-enc: ${{ env.AUTH_URL_ENC }}
 
       - name: Auth Success
         if: success()
