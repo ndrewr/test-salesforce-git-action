@@ -10,8 +10,10 @@ echo 'From ci-validate-prod local action check env...' $AUTH_URL_ENC
 echo 'What does the actual local file look like before rewrite...' $(<prod_auth_url.txt.enc)
 echo -n "$AUTH_URL_ENC" > prod_auth_url.txt.enc
 # printf "%s" "$AUTH_URL_ENC" > prod_auth_url.txt.enc
+echo 'What does the local file look like after rewrite...' $(<prod_auth_url.txt.enc)
 
-openssl enc -d -aes-256-cbc -md md5 -in prod_auth_url.txt.enc -out prod_auth_url.txt -k $1
+openssl enc -d -aes-256-cbc -md md5 -in <(echo "$AUTH_URL_ENC") -out prod_auth_url.txt -k $1
+# openssl enc -d -aes-256-cbc -md md5 -in prod_auth_url.txt.enc -out prod_auth_url.txt -k $1
 
 test -f prod_auth_url.txt && CHECK=exists || CHECK=noexist
 if test $CHECK = noexist ; then
