@@ -18,8 +18,8 @@ jobs:
         # run: test -f prod_auth_url.txt.enc && AUTH_URL_ENC=$(<prod_auth_url.txt.enc) || AUTH_URL_ENC=false && echo $AUTH_URL_ENC
         run: test -f prod_auth_url.txt.enc && echo ::set-env name=AUTH_URL_ENC::$(<prod_auth_url.txt.enc) || echo ::set-env name=AUTH_URL_ENC::false && echo $AUTH_URL_ENC
 
-      - name: Lets check env var
-        run: echo "what is the env var value..." $AUTH_URL_ENC
+      # - name: Lets check env var
+      #   run: echo "what is the env var value..." $AUTH_URL_ENC
 
       - name: Auth to prod org
         if: env.AUTH_URL_ENC != 'false'
