@@ -7,12 +7,12 @@
 echo "Setting up Prod Connection..."
 
 echo 'From ci-validate-prod local action check env...' $AUTH_URL_ENC
-echo $AUTH_URL_ENC > prod_auth_url.txt.enc
-openssl enc -d -aes-256-cbc -md md5 -in prod_auth_url.txt.enc -out prod_auth_url.txt -k $1
+# echo $AUTH_URL_ENC > prod_auth_url.txt.enc
 # openssl enc -d -aes-256-cbc -md md5 -in prod_auth_url.txt.enc -out prod_auth_url.txt -k $1
+openssl enc -d -aes-256-cbc -md md5 -in prod_auth_url.txt.enc -out prod_auth_url.txt -k $1
 
-test -f prod_auth_url.txt && CHECK=true || CHECK=false
-if $CHECK=false ; then
+test -f prod_auth_url.txt && CHECK=exists || CHECK=noexist
+if test $CHECK = noexist ; then
   echo "Game over!"
   exit 1
 fi
