@@ -1,5 +1,11 @@
+name: sfdx-validate
 on:
+  # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestbranchestags
   push:
+    branches:
+      - 'config-workflow-*'
+  pull_request:
+    types: [opened, synchronize, reopened]
     branches:
       - master
       - dev
@@ -15,11 +21,11 @@ jobs:
 
       # Copy prod-auth-url-enc in src to a temp env var
       - name: Prepare environment
-        if:  test -f prod_auth_url.txt.enc
+        # if:  test -f prod_auth_url.txt.enc
         run: echo -n ::set-env name="AUTH_URL_ENC"::$(<prod_auth_url.txt.enc) || echo ::set-env name=AUTH_URL_ENC::false && echo $AUTH_URL_ENC
 
       - name: Auth to prod org
-        if:  test -f prod_auth_url.txt.enc
+        # if:  test -f prod_auth_url.txt.enc
         id: ci-validate-prod
         uses: ./.github/actions/ci-validate-prod
         # id: prod-check-deploy
