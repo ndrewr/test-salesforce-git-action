@@ -15,24 +15,21 @@ jobs:
 
       # Copy prod-auth-url-enc in src to a temp env var
       - name: Prepare environment
-        # run: test -f prod_auth_url.txt.enc && AUTH_URL_ENC=$(<prod_auth_url.txt.enc) || AUTH_URL_ENC=false && echo $AUTH_URL_ENC
-        run: test -f prod_auth_url.txt.enc && echo -n ::set-env name="AUTH_URL_ENC"::$(<prod_auth_url.txt.enc) || echo ::set-env name=AUTH_URL_ENC::false && echo $AUTH_URL_ENC
-
-      # - name: Lets check env var
-      #   run: echo "what is the env var value..." $AUTH_URL_ENC
+        if:  test -f prod_auth_url.txt.enc
+        run: echo -n ::set-env name="AUTH_URL_ENC"::$(<prod_auth_url.txt.enc) || echo ::set-env name=AUTH_URL_ENC::false && echo $AUTH_URL_ENC
 
       - name: Auth to prod org
-        if: env.AUTH_URL_ENC != 'false'
-
+        if:  test -f prod_auth_url.txt.enc
         id: ci-validate-prod
         uses: ./.github/actions/ci-validate-prod
         # id: prod-check-deploy
         # uses: tythonco/actions-sfdx/prod-check-deploy@prod-check-deploy
 
         with:
+          # NOTE: Requires Auth file password to be entered into Github Secrets
+          # See: help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets
           auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
-
-          # auth-url-enc: ${{ env.AUTH_URL_ENC }}
+          auth-url-enc: ${{ env.AUTH_URL_ENC }}
 
       - name: Auth Success
         if: success()

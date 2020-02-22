@@ -3,7 +3,6 @@ author: 'ndrewr'
 description: 'Authenticates to Production org using SFDX cli tool'
 
 inputs:
-  # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   auth-file-key:
     description: 'Auth key to Prod org'
     required: true
