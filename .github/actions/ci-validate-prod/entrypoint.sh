@@ -20,14 +20,21 @@ if test -f prod_auth_url.txt ; then
     echo "Expected file seems to exist..."
 
     # Authenticate to salesforce Prod org
-    # echo "Authenticating..."
-    # sfdx force:auth:sfdxurl:store -f prod_auth_url.txt -a Prod && rm prod_auth_url.txt
+    echo "Authenticating..."
+    sfdx force:auth:sfdxurl:store -f prod_auth_url.txt -a Prod && rm prod_auth_url.txt
     #Convert to MDAPI format for validation against prod
     echo "Converting to MDAPI format..."
     sfdx force:source:convert -d validate_prod -r force-app
     #Simulate deployment to prod & run all tests
     echo "Validating against production by simulating a deployment & running all tests..."
     sfdx force:mdapi:deploy -c -d validate_prod -u Prod -l RunLocalTests -w -1
+
+    if [ "$?" = "1" ]
+    then
+        echo "!!!Deploy has failed!!!!"
+    else
+        echo "!!!Deploy has apparently succeeded!!!!"
+    fi
 
     echo "CI Validate Prod action completed."
 else
