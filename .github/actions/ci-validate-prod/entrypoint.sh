@@ -7,7 +7,12 @@ echo "Setting up Prod Connection..."
 # echo -n "$AUTH_URL_ENC" > prod_auth_url.txt.enc
 # printf "%s" "$AUTH_URL_ENC" > prod_auth_url.txt.enc
 
-openssl enc -d -aes-256-cbc -md md5 -in prod_auth_url.txt.enc -out prod_auth_url.txt -k $1
+if test -f prod_auth_url.txt.enc ; then
+    openssl enc -d -aes-256-cbc -md md5 -in prod_auth_url.txt.enc -out prod_auth_url.txt -k $1
+else
+    echo "Required file missing: prod_auth_url.txt.enc! Exiting!"
+    exit 1
+fi
 
 if test -f prod_auth_url.txt ; then
     echo "Expected file seems to exist..."

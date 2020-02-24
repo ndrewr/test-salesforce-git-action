@@ -26,26 +26,31 @@ jobs:
       # NOTE: Experiment to pass encrypted value to remote action
       # TODO: Can I just convert that enc file here and then pass that result????
       # Copy prod-auth-url-enc in src to a temp env var
-      - name: Prepare environment
-        run: |
-          test -f prod_auth_url.txt.enc && echo -n ::set-env name="AUTH_URL_ENC"::$(<prod_auth_url.txt.enc) || echo ::set-env name=AUTH_URL_ENC::false
+      # - name: Prepare environment
+      #   run: |
+      #     test -f prod_auth_url.txt.enc && echo -n ::set-env name="AUTH_URL_ENC"::$(<prod_auth_url.txt.enc) || echo ::set-env name=AUTH_URL_ENC::false
         # echo $AUTH_URL_ENC
 
-      - name: Auth to prod org
-        # if [ -f Gopkg.toml ]; then
-        # if [ -f docker-compose.test.yml ]; then
+      - name: Auth to QA org
+        id: ci-validate-qa
+        if: github.event_name == 'push' && github.ref == 'config-workflow-on-merge-event'
+        run: |
+          echo "Push event triggered"
 
+      - name: Auth to prod org
         id: ci-validate-prod
-        if: env.AUTH_URL_ENC != false
+        # if: env.AUTH_URL_ENC != false
+        if: github.event_name == 'pull_request' && github.event.target_ref == 'dev'
+
         uses: ./.github/actions/ci-validate-prod
         # NOTE: Below references remote action version; Currently not working
         # id: prod-check-deploy
         # uses: tythonco/actions-sfdx/prod-check-deploy@prod-check-deploy
 
-        # with:
+        with:
           # NOTE: Requires Auth file password to be entered into Github Secrets
           # See: help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets
-          # auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
+          auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
           # auth-url-enc: ${{ env.AUTH_URL_ENC }}
 
       - name: Auth Success
