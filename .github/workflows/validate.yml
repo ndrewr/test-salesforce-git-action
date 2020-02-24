@@ -34,7 +34,7 @@ jobs:
       - name: Check references
         id: check-references
         run: |
-          echo "Github context values: " github.ref
+          echo "Github context values: ${{ github.ref }}"
 
       - name: Auth to QA org
         id: ci-validate-qa
@@ -46,7 +46,7 @@ jobs:
       - name: Auth to prod org
         id: ci-validate-prod
         # if: env.AUTH_URL_ENC != false
-        if: github.event_name == 'pull_request' && github.target_ref == 'dev'
+        if: github.event_name == 'pull_request' && github.base_ref == 'dev'
 
         uses: ./.github/actions/ci-validate-prod
         # NOTE: Below references remote action version; Currently not working
