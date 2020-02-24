@@ -45,7 +45,7 @@ jobs:
         uses: ./.github/actions/ci-validate-prod
         with:
           auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
-          target-org-alias: 'Tarjeh'
+          target-alias: 'Tarjeh'
 
       - name: Auth to prod org
         id: ci-validate-prod

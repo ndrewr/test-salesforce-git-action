@@ -11,3 +11,5 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.auth-file-key }}
+    - ${{ inputs.target-alias }}
+

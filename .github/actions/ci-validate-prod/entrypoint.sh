@@ -32,6 +32,7 @@ if test -f prod_auth_url.txt ; then
     if [ "$?" = "1" ]
     then
         echo "!!!Deploy has failed!!!!"
+        exit 1
     else
         echo "!!!Deploy has apparently succeeded!!!!"
     fi
