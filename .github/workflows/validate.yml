@@ -36,18 +36,20 @@ jobs:
         run: |
           echo "Github context values: ${{ github.ref }}"
 
+      # Run the sfdx-deploy action w/ conditional args by checking "github" context
+      # NOTE: For list of props see: https://help.github.com/en/actions/reference/contexts-and-expression-syntax-for-github-actions#contexts
+      # E.g. find branch/tag name: github.ref returns "refs/heads/my-branch-name"
       - name: Auth to QA org
         id: ci-validate-qa
-        # if: github.event_name == 'push' && github.ref == 'config-workflow-on-merge-event'
-        if: github.event_name == 'push'
-        run: |
-          echo "Push event triggered"
+        if: github.event_name == 'pull_request' && github.base_ref == 'dev'
+        uses: ./.github/actions/ci-validate-prod
+        with:
+          auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
+          target-org-alias: 'Tarjeh'
 
       - name: Auth to prod org
         id: ci-validate-prod
-        # if: env.AUTH_URL_ENC != false
-        if: github.event_name == 'pull_request' && github.base_ref == 'dev'
-
+        if: github.event_name == 'pull_request' && github.base_ref == 'master'
         uses: ./.github/actions/ci-validate-prod
         # NOTE: Below references remote action version; Currently not working
         # id: prod-check-deploy
