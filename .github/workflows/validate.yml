@@ -42,7 +42,7 @@ jobs:
         # id: prod-check-deploy
         # uses: tythonco/actions-sfdx/prod-check-deploy@prod-check-deploy
 
-        with:
+        # with:
           # NOTE: Requires Auth file password to be entered into Github Secrets
           # See: help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets
           # auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
