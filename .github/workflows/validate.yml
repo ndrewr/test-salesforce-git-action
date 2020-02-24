@@ -29,7 +29,7 @@ jobs:
       - name: Prepare environment
         run: |
           test -f prod_auth_url.txt.enc && echo -n ::set-env name="AUTH_URL_ENC"::$(<prod_auth_url.txt.enc) || echo ::set-env name=AUTH_URL_ENC::false
-          # echo $AUTH_URL_ENC
+        # echo $AUTH_URL_ENC
 
       - name: Auth to prod org
         # if [ -f Gopkg.toml ]; then
@@ -45,7 +45,7 @@ jobs:
         with:
           # NOTE: Requires Auth file password to be entered into Github Secrets
           # See: help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets
-          auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
+          # auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
           # auth-url-enc: ${{ env.AUTH_URL_ENC }}
 
       - name: Auth Success
