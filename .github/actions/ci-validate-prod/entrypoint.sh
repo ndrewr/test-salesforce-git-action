@@ -3,22 +3,18 @@
 # Get the private url from environment variable, create required file for cmd
 echo "Setting up Prod Connection..."
 
-# echo 'From ci-validate-prod local action check env...' $AUTH_URL_ENC
+# For a remote action that tries to get value from passed env
 # echo -n "$AUTH_URL_ENC" > prod_auth_url.txt.enc
 # printf "%s" "$AUTH_URL_ENC" > prod_auth_url.txt.enc
 
-# openssl enc -d -aes-256-cbc -md md5 -in <(echo -n $AUTH_URL_ENC) -out prod_auth_url.txt -k $1
 openssl enc -d -aes-256-cbc -md md5 -in prod_auth_url.txt.enc -out prod_auth_url.txt -k $1
 
-# test -f prod_auth_url.txt && CHECK=exists || CHECK=noexist
-# if test $CHECK = noexist ; then
 if test -f prod_auth_url.txt ; then
     echo "Expected file seems to exist..."
 
     # Authenticate to salesforce Prod org
     echo "Authenticating..."
     sfdx force:auth:sfdxurl:store -f prod_auth_url.txt -a Prod && rm prod_auth_url.txt
-
     #Convert to MDAPI format for validation against prod
     echo "Converting to MDAPI format..."
     sfdx force:source:convert -d validate_prod -r force-app
