@@ -8,6 +8,7 @@ inputs:
     required: true
   target-alias:
     description: The alias or username to target for the validation command
+    required: false
     default: 'Prod'
 
 runs:

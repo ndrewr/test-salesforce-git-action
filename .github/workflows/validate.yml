@@ -73,16 +73,16 @@ jobs:
           # auth-url-enc: ${{ env.AUTH_URL_ENC }}
 
       - name: Validate Success
-          if: success() && github.base_ref == 'dev'
-          uses: ./.github/actions/ci-deploy
-          with:
-            auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
-            target-alias: Prod
+        if: success() && github.base_ref == 'dev'
+        uses: ./.github/actions/ci-deploy
+        with:
+          auth-file-key: ${{ env.AUTH_FILE_KEY }}
+          target-alias: Prod
 
-      - name: Auth Success
-        if: success()
-        run: |
-          echo "Authentication to Prod org succeeded!"
+      # - name: Auth Success
+      #   if: success()
+      #   run: |
+      #     echo "Authentication to Prod org succeeded!"
 
 
       - name: Backup step
