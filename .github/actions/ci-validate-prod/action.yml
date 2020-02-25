@@ -7,8 +7,8 @@ inputs:
     description: 'Auth key to Prod org'
     required: true
   target-alias:
-      description: The alias or username to target for the validation command
-      default: 'Prod'
+    description: The alias or username to target for the validation command
+    default: 'Prod'
 
 runs:
   using: 'docker'
