@@ -34,7 +34,7 @@ jobs:
           if [ ! -f prod_auth_url.txt.enc ]; then
             echo "Missing auth_url txt file! Exiting!"
             exit 1
-          elif [ ! -z ${{ secrets.AUTH_FILE_KEY }} ]; then
+          elif [ -z ${{ env.AUTH_FILE_KEY }} ]; then
             echo "Missing Auth File Key in Github secrets! Exiting!"
             exit 1
           else
