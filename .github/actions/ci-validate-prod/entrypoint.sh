@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/bin/bash -l
 
 # Get the private url from environment variable, create required file for cmd
 echo "Setting up Prod Connection..."
