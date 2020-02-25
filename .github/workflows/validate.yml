@@ -41,10 +41,10 @@ jobs:
             echo "All required files/keys present! Continuing..."
           fi
 
-      - name: Check references
-        id: check-references
-        run: |
-          echo "Github context values: ${{ github.ref }}"
+      # - name: Check references
+      #   id: check-references
+      #   run: |
+      #     echo "Github context values: ${{ github.ref }}"
 
       # Run the sfdx-deploy action w/ conditional args by checking "github" context
       # NOTE: For list of props see: https://help.github.com/en/actions/reference/contexts-and-expression-syntax-for-github-actions#contexts

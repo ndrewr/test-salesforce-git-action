@@ -33,6 +33,10 @@ if test -f "$AUTH_URL" ; then
     # echo "Validating against production by simulating a deployment & running all tests..."
     # sfdx force:mdapi:deploy -c -d validate_prod -u Prod -l RunLocalTests -w -1
 
+    # Check deploy ID from prev successful step
+    echo "Fetch Deploy ID..."
+    sfdx force:mdapi:deploy:report
+
     if [ "$?" = "1" ]
     then
         echo "!!!Deploy has failed!!!!"
