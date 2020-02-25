@@ -12,6 +12,8 @@ on:
 
 # NOTE: ENV vars can be declated globally here and shared among jobs/steps below
 # See: https://github.com/actions/starter-workflows/blob/master/ci/google.yml
+env:
+  AUH_FILE_KEY: ${{ secrets.AUH_FILE_KEY }}
 
 jobs:
   # TODO: Add workflow that creates release tag on successful merge into Master
@@ -26,10 +28,18 @@ jobs:
       # NOTE: Experiment to pass encrypted value to remote action
       # TODO: Can I just convert that enc file here and then pass that result????
       # Copy prod-auth-url-enc in src to a temp env var
-      # - name: Prepare environment
-      #   run: |
-      #     test -f prod_auth_url.txt.enc && echo -n ::set-env name="AUTH_URL_ENC"::$(<prod_auth_url.txt.enc) || echo ::set-env name=AUTH_URL_ENC::false
-        # echo $AUTH_URL_ENC
+      # test -f prod_auth_url.txt.enc && echo -n ::set-env name="AUTH_URL_ENC"::$(<prod_auth_url.txt.enc) || echo ::set-env name=AUTH_URL_ENC::false
+      - name: Prepare environment
+        run: |
+          if [ ! -f prod_auth_url.txt.enc ]; then
+            echo "Missing auth_url txt file! Exiting!"
+            exit 1
+          elif [ ! -z $AUTH_FILE_KEY ]; then
+            echo "Missing Auth File Key in Github secrets! Exiting!"
+            exit 1
+          else
+            echo "All required files/keys present! Continuing..."
+          fi
 
       - name: Check references
         id: check-references
@@ -58,7 +68,8 @@ jobs:
         with:
           # NOTE: Requires Auth file password to be entered into Github Secrets
           # See: help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets
-          auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
+          # auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
+          auth-file-key: ${{ AUTH_FILE_KEY }}
           # auth-url-enc: ${{ env.AUTH_URL_ENC }}
 
       - name: Auth Success
