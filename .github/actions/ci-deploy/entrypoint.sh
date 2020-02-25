@@ -25,7 +25,7 @@ if test -f "$AUTH_URL" ; then
 
     # Authenticate to salesforce Prod org
     echo "Authenticating..."
-    sfdx force:auth:sfdxurl:store -f "$AUTH_URL" -a Prod && rm "$AUTH_URL"
+    sfdx force:auth:sfdxurl:store -f "$AUTH_URL" -a "$TARGET_ALIAS" && rm "$AUTH_URL"
     #Convert to MDAPI format for validation against prod
     # echo "Converting to MDAPI format..."
     # sfdx force:source:convert -d validate_prod -r force-app
@@ -35,7 +35,7 @@ if test -f "$AUTH_URL" ; then
 
     # Check deploy ID from prev successful step
     echo "Fetch Deploy ID..."
-    sfdx force:mdapi:deploy:report
+    sfdx force:mdapi:deploy:report -u "$TARGET_ALIAS"
 
     if [ "$?" = "1" ]
     then
