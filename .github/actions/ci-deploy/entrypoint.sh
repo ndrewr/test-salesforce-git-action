@@ -26,19 +26,14 @@ if test -f "$AUTH_URL" ; then
     # Authenticate to salesforce Prod org
     echo "Authenticating..."
     sfdx force:auth:sfdxurl:store -f "$AUTH_URL" -a "$TARGET_ALIAS" && rm "$AUTH_URL"
-    #Convert to MDAPI format for validation against prod
-    # echo "Converting to MDAPI format..."
-    # sfdx force:source:convert -d validate_prod -r force-app
-    #Simulate deployment to prod & run all tests
-    # echo "Validating against production by simulating a deployment & running all tests..."
-    # sfdx force:mdapi:deploy -c -d validate_prod -u Prod -l RunLocalTests -w -1
 
     # Check deploy ID from prev successful step
     echo "Fetch Deploy ID..."
-    # sfdx force:mdapi:deploy:report -u "$TARGET_ALIAS"
-
     DEPLOY_ID=$(sfdx force:mdapi:deploy:report -u "$TARGET_ALIAS" | grep "jobid" | sed -E 's/^jobid:[[:blank:]]*(.*)$/\1/')
     echo "Check deploy id... ${DEPLOY_ID}"
+
+    # echo "Validating against production by simulating a deployment & running all tests..."
+    sfdx force:mdapi:deploy -u Prod  -w -1 -q "$DEPLOY_ID"
 
     if [ "$?" = "1" ]
     then
