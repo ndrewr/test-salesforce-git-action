@@ -31,7 +31,7 @@ jobs:
       # test -f prod_auth_url.txt.enc && echo -n ::set-env name="AUTH_URL_ENC"::$(<prod_auth_url.txt.enc) || echo ::set-env name=AUTH_URL_ENC::false
       - name: Prepare environment
         run: |
-          if [ ! -f fake_auth_url.txt.enc ]; then
+          if [ ! -f prod_auth_url.txt.enc ]; then
             echo "Missing auth_url txt file! Exiting!"
             exit 1
           elif [ ! -z $AUTH_FILE_KEY ]; then
@@ -55,7 +55,7 @@ jobs:
         uses: ./.github/actions/ci-validate-prod
         with:
           auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
-          target-alias: 'Tarjeh'
+          target-alias: 'QA'
 
       - name: Auth to prod org
         id: ci-validate-prod
