@@ -37,7 +37,7 @@ if test -f "$AUTH_URL" ; then
     echo "Fetch Deploy ID..."
     # sfdx force:mdapi:deploy:report -u "$TARGET_ALIAS"
 
-    sfdx force:mdapi:deploy:report -u "$TARGET_ALIAS" | grep "jobid"
+    sfdx force:mdapi:deploy:report -u "$TARGET_ALIAS" | grep "jobid" | sed -E 's/^jobid:[[:blank:]]*(.*)$/\1'
 
     if [ "$?" = "1" ]
     then
