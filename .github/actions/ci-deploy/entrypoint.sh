@@ -35,7 +35,9 @@ if test -f "$AUTH_URL" ; then
 
     # Check deploy ID from prev successful step
     echo "Fetch Deploy ID..."
-    sfdx force:mdapi:deploy:report -u "$TARGET_ALIAS"
+    # sfdx force:mdapi:deploy:report -u "$TARGET_ALIAS"
+
+    sfdx force:mdapi:deploy:report -u "$TARGET_ALIAS" | grep "jobid"
 
     if [ "$?" = "1" ]
     then
