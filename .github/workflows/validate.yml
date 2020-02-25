@@ -69,7 +69,7 @@ jobs:
           # NOTE: Requires Auth file password to be entered into Github Secrets
           # See: help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets
           # auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
-          auth-file-key: ${{ AUTH_FILE_KEY }}
+          auth-file-key: ${{ env.AUTH_FILE_KEY }}
           # auth-url-enc: ${{ env.AUTH_URL_ENC }}
 
       - name: Auth Success
