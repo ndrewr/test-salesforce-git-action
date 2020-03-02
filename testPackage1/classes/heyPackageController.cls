@@ -4,15 +4,14 @@ public with sharing class heyPackageController {
     }
 
     public static String getRandomText() {
-        return 'Totally random.';
+        return 'Some totally random text.';
     }
 
     public static String getRandomText2() {
-        return 'Totally more random.';
+        return 'Some totally more random text.';
     }
 
     public static String getRandomText3() {
-        return 'Totally even more random.';
+        return 'Some totally even more random text.';
     }
-
 }
