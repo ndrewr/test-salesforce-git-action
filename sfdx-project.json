@@ -1,10 +1,32 @@
 {
-  "packageDirectories": [
-    {
-      "path": "force-app",
-      "default": true
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true
+        },
+        {
+            "path": "force-app/main/default/lwc/helloPackage1",
+            "package": "MyPackage1",
+            "versionName": "ver 0.1.TEST",
+            "versionNumber": "0.1.0.NEXT",
+            "default": false
+        },
+        {
+            "path": "./testPackage1",
+            "package": "Test Package 1",
+            "versionDescription": "The first version of Test Package 1! Just testing!",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT",
+            "default": false
+        }
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "packageAliases": {
+        "MyPackage1": "0Ho1U000000GmoBSAS",
+        "MyPackage1@0.1.0-1": "04t1U000006dbd3QAA",
+        "Test Package 1": "0Ho1U000000GmoGSAS",
+        "Test Package 1@0.1.0-1": "04t1U000006dbd8QAA",
+        "Test Package 1@0.1.0-2": "04t1U000006dbdDQAQ"
     }
-  ],
-  "namespace": "",
-  "sfdcLoginUrl": "https://login.salesforce.com"
 }
