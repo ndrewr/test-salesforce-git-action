@@ -37,15 +37,13 @@
         }
     },
     "lint-staged": {
-        "linters": {
-            "**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}": [
-                "prettier --write",
-                "git add"
-            ],
-            "**/lwc/**": [
-                "eslint",
-                "git add"
-            ]
-        }
+        "**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}": [
+            "prettier --write",
+            "git add"
+        ],
+        "**/lwc/**": [
+            "eslint",
+            "git add"
+        ]
     }
 }
