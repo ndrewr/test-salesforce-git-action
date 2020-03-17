@@ -45,8 +45,6 @@ fi
 # A step for updating the newly-generated package's configuration fields can go here (see package.json)
 #
 
-# Create the package's first version so it can be installed
-
 # Optionally skip validation for rapid development; This will become mandatory before package promotion however
 read -p "Temporarily skip validation in package version creation? " SKIP_VALIDATION
 
