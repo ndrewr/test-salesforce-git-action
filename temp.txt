@@ -1,0 +1,15 @@
+=== Orgs
+     ALIAS                 USERNAME                     ORG ID              CONNECTED STATUS
+───  ────────────────────  ───────────────────────────  ──────────────────  ────────────────
+     AHHQAOrg              qa@alliancehh.org            00D0U0000009B0KUAU  Connected
+     AlliancePortalDevHub  prod@alliancehh.org          00Di0000000dKiwEAE  JwtGrantError
+     ClairvoyantDevHub     devhub@clairvoyant.com       00D3i000000qrp1EAA  Connected
+     FunnelSourceDevHub    scott.b.covert+fs@gmail.com  00D30000000VsQAEA0  Connected
+(D)  TarjehDevHub          hello+salesforce@ndrewr.com  00D1U000000qIRNUA2  Connected
+
+     ALIAS         SCRATCH ORG NAME  USERNAME                       ORG ID              EXPIRATION DATE
+───  ────────────  ────────────────  ─────────────────────────────  ──────────────────  ───────────────
+                   Tarjeh            test-ibrgwxriwnlr@example.com  00D63000000EYxkEAG  2020-03-06
+     FunnelSource  FunnelSource      test-vwc9bilnu2ei@example.com  00DJ0000003S6xXMAS  2020-03-17
+(U)  scratch2      Tarjeh            test-g4uunrafov6b@example.com  00DR0000001oFvyMAE  2020-03-06
+

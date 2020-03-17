@@ -1,10 +1,70 @@
 {
-  "packageDirectories": [
-    {
-      "path": "force-app",
-      "default": true
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true
+        },
+        {
+            "path": "force-app/main/default/lwc/helloPackage1",
+            "package": "MyPackage1",
+            "versionName": "ver 0.1.TEST",
+            "versionNumber": "0.1.0.NEXT",
+            "default": false
+        },
+        {
+            "path": "./testPackage1",
+            "package": "Test Package 1",
+            "versionDescription": "The first version of Test Package 1! Just testing!",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT",
+            "default": false
+        },
+        {
+            "path": "testPackage2",
+            "package": "Test Package 2",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT",
+            "default": false
+        }
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "packageAliases": {
+        "MyPackage1": "0Ho1U000000GmoBSAS",
+        "MyPackage1@0.1.0-1": "04t1U000006dbd3QAA",
+        "Test Package 1": "0Ho1U000000GmoGSAS",
+        "Test Package 1@0.1.0-1": "04t1U000006dbd8QAA",
+        "Test Package 1@0.1.0-2": "04t1U000006dbdDQAQ",
+        "Test Package 1@0.1.0-4": "04t1U000006dbepQAA",
+        "Test Package 1@0.1.0-5": "04t1U000006dbeuQAA",
+        "Test Package 1@0.1.0-6": "04t1U000006dblNQAQ",
+        "Test Package 1@0.1.0-7": "04t1U000006dblSQAQ",
+        "Test Package 1@0.1.0-8": "04t1U000006dblXQAQ",
+        "Test Package 1@0.1.0-9": "04t1U000006dblcQAA",
+        "Test Package 1@0.1.0-10": "04t1U000006dblhQAA",
+        "Test Package 1@0.1.0-11": "04t1U000006dblmQAA",
+        "Test Package 1@0.1.0-12": "04t1U000006dblrQAA",
+        "Test Package 1@0.1.0-13": "04t1U000006dblwQAA",
+        "Test Package 1@0.1.0-14": "04t1U000006dbm1QAA",
+        "Test Package 1@0.1.0-15": "04t1U000006dbm6QAA",
+        "Test Package 1@0.1.0-16": "04t1U000006dbmBQAQ",
+        "Test Package 1@0.1.0-17": "04t1U000006dbmGQAQ",
+        "Test Package 1@0.1.0-18": "04t1U000006dbmLQAQ",
+        "Test Package 1@0.1.0-19": "04t1U000006dbmQQAQ",
+        "Test Package 1@0.1.0-20": "04t1U000006dbmVQAQ",
+        "Test Package 1@0.1.0-21": "04t1U000006dbmaQAA",
+        "Test Package 1@0.1.0-22": "04t1U000006dbmfQAA",
+        "Test Package 1@0.1.0-23": "04t1U000006dbmkQAA",
+        "Test Package 1@0.1.0-24": "04t1U000006dbmpQAA",
+        "Test Package 1@0.1.0-25": "04t1U000006dbmuQAA",
+        "Test Package 1@0.1.0-26": "04t1U000006dbmzQAA",
+        "Test Package 1@0.1.0-27": "04t1U000006dbn4QAA",
+        "Test Package 1@0.1.0-28": "04t1U000006dbp0QAA",
+        "Test Package 1@0.1.0-29": "04t1U000006dbp5QAA",
+        "Test Package 1@0.1.0-30": "04t1U000006dbqSQAQ",
+        "Test Package 2": "0Ho1U000000GmoLSAS",
+        "Test Package 2@0.1.0-1": "04t1U000006dbqhQAA",
+        "Test Package 1@0.1.0-31": "04t1U000006dc0eQAA",
+        "Test Package 1@0.1.0-32": "04t1U000006dc0oQAA"
     }
-  ],
-  "namespace": "",
-  "sfdcLoginUrl": "https://login.salesforce.com"
 }
