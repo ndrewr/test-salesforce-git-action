@@ -1,95 +1,93 @@
 name: sfdx-validate-package
 on:
-  # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestbranchestags
-  push:
-    branches:
-      - 'packaging-*'
-      - 'config-*'
+    # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestbranchestags
+    push:
+        branches:
+            - 'packaging-*'
+            - 'config-*'
 
-  # pull_request:
-  #   types: [opened, synchronize, reopened]
-  #   branches:
-  #     - master
-  #     - dev
+    # pull_request:
+    #   types: [opened, synchronize, reopened]
+    #   branches:
+    #     - master
+    #     - dev
 
 # NOTE: ENV vars can be declated globally here and shared among jobs/steps below
 # See: https://github.com/actions/starter-workflows/blob/master/ci/google.yml
 env:
-  AUTH_FILE_KEY: ${{ secrets.AUTH_FILE_KEY }}
+    AUTH_FILE_KEY: ${{ secrets.AUTH_FILE_KEY }}
 
 jobs:
-  create_package_version:
-    runs-on: ubuntu-latest
-    name:
-    steps:
-      # Using v2 in this example ensures you're using a stable version of the checkout action.
-      - name: Checkout
-        uses: actions/checkout@v2
+    create_package_version:
+        runs-on: ubuntu-latest
+        name: Create package version and test
+        steps:
+            # Using v2 in this example ensures you're using a stable version of the checkout action.
+            - name: Checkout
+              uses: actions/checkout@v2
 
-      # NOTE: Experiment to pass encrypted value to remote action
-      # TODO: Can I just convert that enc file here and then pass that result????
-      # Copy prod-auth-url-enc in src to a temp env var
-      # test -f prod_auth_url.txt.enc && echo -n ::set-env name="AUTH_URL_ENC"::$(<prod_auth_url.txt.enc) || echo ::set-env name=AUTH_URL_ENC::false
-      - name: Prepare environment
-        run: |
-          if [ ! -f prod_auth_url.txt.enc ]; then
-            echo "Missing auth_url txt file! Exiting!"
-            exit 1
-          elif [ -z ${{ env.AUTH_FILE_KEY }} ]; then
-            echo "Missing Auth File Key in Github secrets! Exiting!"
-            exit 1
-          else
-            echo "All required files/keys present! Continuing..."
-          fi
+            # NOTE: Experiment to pass encrypted value to remote action
+            # TODO: Can I just convert that enc file here and then pass that result????
+            # Copy prod-auth-url-enc in src to a temp env var
+            # test -f prod_auth_url.txt.enc && echo -n ::set-env name="AUTH_URL_ENC"::$(<prod_auth_url.txt.enc) || echo ::set-env name=AUTH_URL_ENC::false
+            - name: Prepare environment
+              run: |
+                  if [ ! -f prod_auth_url.txt.enc ]; then
+                    echo "Missing auth_url txt file! Exiting!"
+                    exit 1
+                  elif [ -z ${{ env.AUTH_FILE_KEY }} ]; then
+                    echo "Missing Auth File Key in Github secrets! Exiting!"
+                    exit 1
+                  else
+                    echo "All required files/keys present! Continuing..."
+                  fi
 
-      # Run the sfdx-deploy action w/ conditional args by checking "github" context
-      # NOTE: For list of props see: https://help.github.com/en/actions/reference/contexts-and-expression-syntax-for-github-actions#contexts
-      # E.g. find branch/tag name: github.ref returns "refs/heads/my-branch-name"
-      # - name: Auth to QA org
-      #   id: ci-validate-qa
-      #   if: github.event_name == 'pull_request' && github.base_ref == 'dev'
-      #   uses: ./.github/actions/ci-validate-prod
-      #   with:
-      #     auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
-      #     target-alias: Prod
+            # Run the sfdx-deploy action w/ conditional args by checking "github" context
+            # NOTE: For list of props see: https://help.github.com/en/actions/reference/contexts-and-expression-syntax-for-github-actions#contexts
+            # E.g. find branch/tag name: github.ref returns "refs/heads/my-branch-name"
+            # - name: Auth to QA org
+            #   id: ci-validate-qa
+            #   if: github.event_name == 'pull_request' && github.base_ref == 'dev'
+            #   uses: ./.github/actions/ci-validate-prod
+            #   with:
+            #     auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
+            #     target-alias: Prod
 
-      # Call external script to auth?
-      - name: Auth to DevHub with Remote script
-        id: auth-to-devhub
-        run: |
-          echo "Call asuth-to-devhub script ..."
-          bash scripts/auth-to-devhub.sh
+            # Call external script to auth?
+            - name: Auth to DevHub with Remote script
+              id: auth-to-devhub
+              run: |
+                  echo "Call asuth-to-devhub script ..."
+                  bash scripts/auth-to-devhub.sh
 
+            # - name: Auth to Devhub and Validate to Prod
+            #   id: ci-validate-prod
+            #   if: github.event_name == 'pull_request' && github.base_ref == 'master'
+            #   uses: ./.github/actions/ci-validate-prod
+            # NOTE: Below references remote action version; Currently not working
+            # id: prod-check-deploy
+            # uses: tythonco/actions-sfdx/prod-check-deploy@prod-check-deploy
 
-      # - name: Auth to Devhub and Validate to Prod
-      #   id: ci-validate-prod
-      #   if: github.event_name == 'pull_request' && github.base_ref == 'master'
-      #   uses: ./.github/actions/ci-validate-prod
-        # NOTE: Below references remote action version; Currently not working
-        # id: prod-check-deploy
-        # uses: tythonco/actions-sfdx/prod-check-deploy@prod-check-deploy
+            # NOTE: Requires Auth file password to be entered into Github Secrets
+            # See: help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets
+            # with:
+            #   auth-file-key: ${{ env.AUTH_FILE_KEY }}
+            # auth-url-enc: ${{ env.AUTH_URL_ENC }}
+            # auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
 
-          # NOTE: Requires Auth file password to be entered into Github Secrets
-          # See: help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets
-        # with:
-        #   auth-file-key: ${{ env.AUTH_FILE_KEY }}
-          # auth-url-enc: ${{ env.AUTH_URL_ENC }}
-          # auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
+            - name: Validate Success
+              if: success() && github.base_ref == 'dev'
+              uses: ./.github/actions/ci-deploy
+              with:
+                  auth-file-key: ${{ env.AUTH_FILE_KEY }}
+                  target-alias: Prod
 
-      - name: Validate Success
-        if: success() && github.base_ref == 'dev'
-        uses: ./.github/actions/ci-deploy
-        with:
-          auth-file-key: ${{ env.AUTH_FILE_KEY }}
-          target-alias: Prod
+            - name: Auth Success
+              if: success()
+              run: |
+                  echo "Authentication to Prod org succeeded!"
 
-      - name: Auth Success
-        if: success()
-        run: |
-          echo "Authentication to Prod org succeeded!"
-
-
-      - name: Backup step
-        if: failure()
-        run: |
-          echo "There was issue with the 'validate' action!"
+            - name: Backup step
+              if: failure()
+              run: |
+                  echo "There was issue with the 'validate' action!"
