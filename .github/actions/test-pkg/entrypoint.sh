@@ -20,7 +20,7 @@ fi
 if test -f "$AUTH_URL" ; then
     # Authenticate to salesforce Prod org
     echo "Authenticating..."
-    sfdx force:auth:sfdxurl:store -f "$AUTH_URL" -a "$TARGET_ALIAS" && rm "$AUTH_URL"
+    sfdx force:auth:sfdxurl:store -f "$AUTH_URL" -a "$TARGET_ALIAS" -d && rm "$AUTH_URL"
 
     echo "Creating first version of package ${PKG_NAME} ..."
     PKG_VER_ID=$(sfdx force:package:version:create --package "$PKG_NAME" --installationkeybypass --wait 15 \
