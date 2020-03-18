@@ -1,4 +1,4 @@
-name: 'CI Validate Production'
+name: 'CI Deploy to Production'
 author: 'ndrewr'
 description: 'Authenticates to Production org using SFDX cli tool'
 
@@ -8,7 +8,6 @@ inputs:
     required: true
   target-alias:
     description: The alias or username to target for the validation command
-    required: false
     default: 'Prod'
 
 runs:

@@ -1,0 +1,19 @@
+name: 'Test Installation of Package'
+author: 'ndrewr'
+description: 'Authenticates to Prod org, Creates new version of package, and attempts a test install'
+
+inputs:
+    auth-file-key:
+        description: 'Auth key to Prod org'
+        required: true
+    target-alias:
+        description: The alias or username to target for the validation command
+        default: 'Prod'
+        required: false
+
+runs:
+    using: 'docker'
+    image: 'Dockerfile'
+    args:
+        - ${{ inputs.auth-file-key }}
+        - ${{ inputs.target-alias }}
