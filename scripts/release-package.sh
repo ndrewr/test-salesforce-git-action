@@ -25,7 +25,7 @@ PKG_VER_ID=$(sfdx force:package:version:create --package "Test Package 1" --inst
 # Promote package
 echo "Done! Promote this package for release! Package ID: ${PKG_VER_ID}"
 # -p, --package=package : (required) ID (starts with 04t) or alias of the package version to promote
-sfdx force:package:version:promote --package "$PKG_VER_ID" --noprompt
+sfdx force:package:version:promote --package "$PKG_VER_ID" --codecoverage --noprompt
 
 echo "Package version has been promoted!"
 

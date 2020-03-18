@@ -6,11 +6,12 @@ on:
             - 'packaging-*'
             - 'config-*'
 
-    # pull_request:
-    #   types: [opened, synchronize, reopened]
-    #   branches:
-    #     - master
-    #     - dev
+    pull_request:
+        types: [opened, synchronize, reopened]
+        branches:
+            - master
+            - dev
+            - 'packaging-*'
 
 # NOTE: ENV vars can be declated globally here and shared among jobs/steps below
 # See: https://github.com/actions/starter-workflows/blob/master/ci/google.yml
@@ -62,7 +63,6 @@ jobs:
               with:
                   auth-file-key: ${{ env.AUTH_FILE_KEY }}
 
-
               # run: |
               #     echo "Call auth-to-devhub script ..."
               #     bash scripts/auth-to-devhub.sh
@@ -81,9 +81,10 @@ jobs:
             # auth-url-enc: ${{ env.AUTH_URL_ENC }}
             # auth-file-key: ${{ secrets.AUTH_FILE_KEY }}
 
-            - name: Validate Success
+            - name: Validate by Testing Package Install
               if: success() && github.base_ref == 'dev'
-              uses: ./.github/actions/ci-deploy
+              # uses: ./.github/actions/ci-deploy
+              uses: ./.github/actions/test-pkg
               with:
                   auth-file-key: ${{ env.AUTH_FILE_KEY }}
                   target-alias: Prod

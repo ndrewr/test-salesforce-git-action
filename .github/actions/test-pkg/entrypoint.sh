@@ -23,18 +23,42 @@ if test -f "$AUTH_URL" ; then
     sfdx force:auth:sfdxurl:store -f "$AUTH_URL" -a "$TARGET_ALIAS" -d && rm "$AUTH_URL"
 
     echo "Creating first version of package ${PKG_NAME} ..."
-    PKG_VER_ID=$(sfdx force:package:version:create --package "$PKG_NAME" --installationkeybypass --wait 15 \
+    PKG_VER_ID=$(sfdx force:package:version:create --package "$PKG_NAME" --installationkeybypass --codecoverage --wait 15 \
     | grep login.salesforce.com \
     | sed -E 's/^.*(04t[[:alnum:]]*)$/\1/')
 
-    if [ "$?" = "1" ]
-    then
+    if [ "$?" = "1" ]; then
         echo "!!!Package test has failed!!!!"
         exit 1
     else
         echo "!!!Package test has apparently succeeded!!!!"
         echo "Successfully generated package with version ID: ${PKG_VER_ID}"
     fi
+
+    echo "Creating a test scratch org and installing package..."
+
+    if sfdx force:org:list | grep 'PackageTestOrg'; then
+        echo "Deleting pre-existing test scratch org ..."
+        sfdx force:org:delete -u PackageTestOrg -p
+    else
+        echo "!!!Scratch org does not exist!!!!"
+    fi
+
+    sfdx force:org:create --definitionfile config/project-scratch-def.json --setalias PackageTestOrg
+
+    echo "Preparing to install package with id: ${PKG_VER_ID}"
+
+    sfdx force:package:install --package "$PKG_VER_ID" --targetusername PackageTestOrg --noprompt --wait -1
+
+    if [ "$?" = "1" ]
+    then
+        echo "" && echo "ERROR: Problem installing package!"
+        exit
+    else
+        echo "Package install successful!"
+    fi
+
+
 else
     echo "There was a problem generating auth_url file! Exiting!"
     exit 1
