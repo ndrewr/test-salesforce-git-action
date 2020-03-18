@@ -57,15 +57,15 @@ jobs:
             # Call external script to auth?
             # Update: I dont think this works; Need a machine context w/ node and sfdx installed; these machine contexts btwn actions are not shared
             # ... so once you are auth'd in one context, the next action doesn't share that auth'd environment
-            - name: Auth to DevHub and Test Package Install
-              id: test-pkg
-              uses: ./.github/actions/test-pkg
-              with:
-                  auth-file-key: ${{ env.AUTH_FILE_KEY }}
+            # - name: Auth to DevHub and Test Package Install
+            #   id: test-pkg
+            #   uses: ./.github/actions/test-pkg
+            #   with:
+            #       auth-file-key: ${{ env.AUTH_FILE_KEY }}
 
-              # run: |
-              #     echo "Call auth-to-devhub script ..."
-              #     bash scripts/auth-to-devhub.sh
+            # run: |
+            #     echo "Call auth-to-devhub script ..."
+            #     bash scripts/auth-to-devhub.sh
             # - name: Auth to Devhub and Validate to Prod
             #   id: ci-validate-prod
             #   if: github.event_name == 'pull_request' && github.base_ref == 'master'
