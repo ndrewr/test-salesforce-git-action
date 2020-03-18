@@ -23,17 +23,23 @@ if test -f "$AUTH_URL" ; then
     sfdx force:auth:sfdxurl:store -f "$AUTH_URL" -a "$TARGET_ALIAS" -d && rm "$AUTH_URL"
 
     echo "Creating first version of package ${PKG_NAME} ..."
-    PKG_VER_ID=$(sfdx force:package:version:create --package "$PKG_NAME" --installationkeybypass --codecoverage --wait 15 \
-    | grep login.salesforce.com \
-    | sed -E 's/^.*(04t[[:alnum:]]*)$/\1/')
+    # PKG_VER_ID=$(sfdx force:package:version:create --package "$PKG_NAME" --installationkeybypass --codecoverage --wait 15 \
+    # | grep login.salesforce.com \
+    # | sed -E 's/^.*(04t[[:alnum:]]*)$/\1/')
+
+
+    sfdx force:package:version:create --package "$PKG_NAME" --installationkeybypass --codecoverage --wait 15
 
     if [ "$?" = "1" ]; then
         echo "!!!Package test has failed!!!!"
         exit 1
     else
-        echo "!!!Package test has apparently succeeded!!!!"
-        echo "Successfully generated package with version ID: ${PKG_VER_ID}"
+        echo "!!!Package test has apparently succeeded!!!?!"
+        # echo "Successfully generated package with version ID: ${PKG_VER_ID}"
     fi
+
+    PKG_VER_ID=$(grep "Test Package 1" sfdx-project.json | tail -1 | sed -E 's/^.*"(04t[[:alnum:]]*)"$/\1/')
+
 
     echo "Creating a test scratch org and installing package..."
 
