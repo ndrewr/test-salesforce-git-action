@@ -24,8 +24,8 @@ public with sharing class testHeyPackageController {
         Test.stopTest();
         System.assertEquals(
             result,
-            'Totally more random.',
-            // 'Some totally more random text.',
+            // 'Totally more random.',
+            'Some totally more random text.',
             'Ruhroh! There was a problem with result of getRandomText!'
         );
     }
